@@ -4,6 +4,7 @@ import ar.com.kfgodel.processingo.api.ProcessingRunner;
 import ar.com.kfgodel.processingo.api.ProcessingSketch;
 import ar.com.kfgodel.processingo.api.original.ProcessingConfiguration;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
+import ar.com.kfgodel.processingo.api.original.ProcessingSetup;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
 import ar.com.kfgodel.processingo.api.viewports.ViewportDefinition;
 import ar.com.kfgodel.processingo.impl.PappletRunner;
@@ -21,6 +22,11 @@ public class DemoHelloWorld {
       public void onSettings(ProcessingConfiguration configuration) {
         ViewportDefinition.window(ViewSize.of(200, 100), ProcessingRenderer.P2D)
           .change(configuration);
+      }
+
+      @Override
+      public void onSetup(ProcessingSetup processingSetup) {
+        processingSetup.text("Hello World!", 50, 50);
       }
     };
     ProcessingRunner runner = PappletRunner.create();
