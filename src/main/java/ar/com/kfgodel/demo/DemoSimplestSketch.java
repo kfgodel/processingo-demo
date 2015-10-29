@@ -3,7 +3,7 @@ package ar.com.kfgodel.demo;
 import ar.com.kfgodel.processingo.api.ProcessingRunner;
 import ar.com.kfgodel.processingo.api.ProcessingSketch;
 import ar.com.kfgodel.processingo.impl.PappletRunner;
-import ar.com.kfgodel.processingo.impl.SketchSupport;
+import ar.com.kfgodel.processingo.impl.sketchs.SketchSupport;
 
 /**
  * This is the most basic example showing an empty sketch behavior
