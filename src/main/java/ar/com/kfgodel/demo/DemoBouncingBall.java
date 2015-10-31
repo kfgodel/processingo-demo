@@ -24,7 +24,7 @@ public class DemoBouncingBall {
         (canvas)-> {
           BackgroundVisual.create(0xAAAAAA)
             .applyOn(canvas);
-          EllipseVisual.create(ball.position().product(Vector2d.xy(640, 480)), ball.radius() * 480, ball.radius() * 480)
+          EllipseVisual.create(ball.position().product(Vector2d.xy(640, 480)), ball.radius() * 640, ball.radius() * 480)
             .applyOn(canvas);
           ball.move();
         });
