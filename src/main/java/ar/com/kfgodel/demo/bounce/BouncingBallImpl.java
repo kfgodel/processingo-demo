@@ -39,18 +39,25 @@ public class BouncingBallImpl implements BouncingBall {
   public void move() {
     Vector2d futurePosition = position.plus(velocity);
     boolean bounced = false;
-    if(futurePosition.x() + radius > 1.0 || futurePosition.x() - radius < 0.0){
+    if(futurePosition.x() + radius > 1.0){
       bounced = true;
       velocity = velocity().invertX();
+      futurePosition = Vector2d.xy(1 - radius, futurePosition.y());
+    } else if(futurePosition.x() - radius < 0.0){
+      bounced = true;
+      velocity = velocity().invertX();
+      futurePosition = Vector2d.xy(0 + radius, futurePosition.y());
     }
-    if(futurePosition.y() + radius > 1.0 || futurePosition.y() - radius < 0.0){
+    if(futurePosition.y() + radius > 1.0){
       bounced = true;
       velocity = velocity().invertY();
+      futurePosition = Vector2d.xy(futurePosition.x(), 1.0 - radius);
+    } else if(futurePosition.y() - radius < 0.0){
+      bounced = true;
+      velocity = velocity().invertY();
+      futurePosition = Vector2d.xy(futurePosition.x(), 0 + radius);
     }
-    if(!bounced){
-      // Only change position if not bouncing off a wall
-      positionOn(futurePosition);
-    }
+    positionOn(futurePosition);
   }
 
   @Override

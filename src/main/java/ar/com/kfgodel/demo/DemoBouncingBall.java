@@ -31,7 +31,7 @@ public class DemoBouncingBall {
     ProcessingSketch sketch = DescribeWorldPerFrameSketch
       .create(ViewportDefinition.window(ViewSize.of(640, 480), ProcessingRenderer.P2D),
         (canvas)-> {
-          BackgroundVisual.create(0xAAAAAA)
+          BackgroundVisual.create(0xAAAAAAAA)
             .applyOn(canvas);
           EllipseVisual.create(ball.position().product(Vector2d.xy(640, 480)), ball.radius() * 640, ball.radius() * 480)
             .applyOn(canvas);

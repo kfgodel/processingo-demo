@@ -49,28 +49,28 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
         context().ball(()-> BouncingBall.withVelocity(Vector2d.xy(0.1, 0.2)));
         describe("when positioned on the highest x", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(Vector2d.xy(1.0 - context().ball().radius(), 0.5));
+            context().ball().positionOn(Vector2d.xy(1.0 - (context().ball().radius() / 2), 0.5));
           });
           it("x velocity becomes negative if moved", () -> {
             context().ball().move();
             assertThat(context().ball().velocity().x()).isEqualTo(-0.1f);
           });
-          it("highest x point never gets higher than 1.0 if moved", () -> {
+          it("highest x point becomes 1.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().highestXPoint()).isLessThanOrEqualTo(1.0f);
+            assertThat(context().ball().highestXPoint()).isEqualTo(1.0f);
           });
         });
         describe("when positioned on the highest y", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(Vector2d.xy(0.5, 1.0 - context().ball().radius()));
+            context().ball().positionOn(Vector2d.xy(0.5, 1.0 - context().ball().radius()  /2));
           });
           it("y velocity becomes negative if moved", () -> {
             context().ball().move();
             assertThat(context().ball().velocity().y()).isEqualTo(-0.2f);
           });
-          it("highest y point never gets higher than 1.0 if moved", () -> {
+          it("highest y point becomes 1.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().highestYPoint()).isLessThanOrEqualTo(1.0f);
+            assertThat(context().ball().highestYPoint()).isEqualTo(1.0f);
           });
         });
       });
@@ -79,28 +79,28 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
         context().ball(()-> BouncingBall.withVelocity(Vector2d.xy(-0.1, -0.2)));
         describe("when positioned on the lowest x", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(Vector2d.xy(context().ball().radius(), 0.5));
+            context().ball().positionOn(Vector2d.xy(context().ball().radius() / 2, 0.5));
           });
           it("x velocity becomes positive if moved", () -> {
             context().ball().move();
             assertThat(context().ball().velocity().x()).isEqualTo(0.1f);
           });
-          it("lowest x point never gets lower than 0.0", () -> {
+          it("lowest x point becomes 0.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().lowestXPoint()).isGreaterThanOrEqualTo(0.0f);
+            assertThat(context().ball().lowestXPoint()).isEqualTo(0.0f);
           });
         });
         describe("when positioned on the lowest y", () -> {
           beforeEach(()->{
-            context().ball().positionOn(Vector2d.xy(0.5, context().ball().radius()));
+            context().ball().positionOn(Vector2d.xy(0.5, context().ball().radius() / 2));
           });
           it("y velocity becomes positive if moved", () -> {
             context().ball().move();
             assertThat(context().ball().velocity().y()).isEqualTo(0.2f);
           });
-          it("lowest y position never gets lower than 0.0", () -> {
+          it("lowest y position becomes 0.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().lowestYPoint()).isGreaterThanOrEqualTo(0.0f);
+            assertThat(context().ball().lowestYPoint()).isEqualTo(0.0f);
           });
         });
 
