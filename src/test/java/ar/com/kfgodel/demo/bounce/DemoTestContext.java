@@ -2,6 +2,7 @@ package ar.com.kfgodel.demo.bounce;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.demo.ripple.RippleWave;
+import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.WorldClock;
 import ar.com.kfgodel.processingo.api.space.Vector2d;
 
@@ -24,4 +25,7 @@ public interface DemoTestContext extends TestContext {
 
   WorldClock clock();
   void clock(Supplier<WorldClock> definition);
+
+  void rippleWorld(Supplier<RippleWorld> definition);
+  RippleWorld rippleWorld();
 }
