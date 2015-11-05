@@ -2,6 +2,7 @@ package ar.com.kfgodel.demo;
 
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.SystemWorldClock;
+import ar.com.kfgodel.processingo.api.input.MouseEventContext;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
 import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
@@ -15,6 +16,8 @@ import ar.com.kfgodel.processingo.worker.api.WorkerTask;
 import ar.com.kfgodel.processingo.worker.api.WorkerThread;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * This demo shows a ripple effect around mouse clicks
@@ -27,9 +30,14 @@ public class DemoRippleClick {
     // How can I focus on the represented world rather than the architecture?
     RippleWorld rippleWorld = RippleWorld.create(SystemWorldClock.create());
 
-    // Pass the worker to initialize the represented world
-    WorkerThread.create()
-      .execute(WorkerTask.periodicWith(TimeQuantity.of(100, TimeUnit.MILLISECONDS), rippleWorld::removeDeadRipples));
+    // Function<MouseEvent,WorkerTask> ? Take it from the represented world configuration?
+    Function<MouseEventContext, WorkerTask> mouseClickConnector = (mouseEvent)->{
+      return (worker)-> rippleWorld.mouseClickedOn(Vector2d.xy(mouseEvent.mouseX(), mouseEvent.mouseY()));
+    };
+
+    Supplier<WorkerTask> workerStartConnector = ()->
+      WorkerTask.periodicWith(TimeQuantity.of(100, TimeUnit.MILLISECONDS), rippleWorld::removeDeadRipples);
+
 
     // Safe Thread visual description ?
     DescribeWorldPerFrameSketch sketch = DescribeWorldPerFrameSketch
@@ -43,10 +51,14 @@ public class DemoRippleClick {
         }
       );
 
-    // Function<MouseEvent,WorkerTask> ? Take it from the represented world configuration?
-    sketch.plugOnMouseClicked((mouseEvent)->{
-      rippleWorld.mouseClickedOn(Vector2d.xy(mouseEvent.mouseX(), mouseEvent.mouseY()));
-    });
+    // Pass the worker to initialize the represented world
+    WorkerThread workerThread = WorkerThread.create();
+    workerThread.execute(workerStartConnector.get());
+
+    sketch.plugOnMouseClicked((mouseEventContext -> {
+      workerThread.execute(mouseClickConnector.apply(mouseEventContext));
+    }));
+
 
     PappletRunner.create().run(sketch);
   }

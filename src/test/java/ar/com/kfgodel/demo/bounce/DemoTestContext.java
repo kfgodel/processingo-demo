@@ -1,6 +1,8 @@
 package ar.com.kfgodel.demo.bounce;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
+import ar.com.kfgodel.demo.ants.Ant;
+import ar.com.kfgodel.demo.ants.AntWorld;
 import ar.com.kfgodel.demo.ripple.RippleWave;
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.WorldClock;
@@ -28,4 +30,13 @@ public interface DemoTestContext extends TestContext {
 
   void rippleWorld(Supplier<RippleWorld> definition);
   RippleWorld rippleWorld();
+
+  void antWorld(Supplier<AntWorld> definition);
+  AntWorld antWorld();
+
+  void ant(Supplier<Ant> definition);
+  Ant ant();
+
+  void antDirection(Supplier<Vector2d> definition);
+  Vector2d antDirection();
 }
