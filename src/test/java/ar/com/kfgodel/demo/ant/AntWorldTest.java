@@ -1,7 +1,8 @@
-package ar.com.kfgodel.demo.bounce;
+package ar.com.kfgodel.demo.ant;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
+import ar.com.kfgodel.demo.DemoTestContext;
 import ar.com.kfgodel.demo.ants.Ant;
 import ar.com.kfgodel.demo.ants.AntWorld;
 import ar.com.kfgodel.processingo.api.space.Vector2d;

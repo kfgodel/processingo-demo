@@ -1,9 +1,8 @@
-package ar.com.kfgodel.demo.bounce;
+package ar.com.kfgodel.demo.ripple;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.demo.ripple.RippleWorld;
-import ar.com.kfgodel.demo.ripple.WorldClock;
+import ar.com.kfgodel.demo.DemoTestContext;
 import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import org.junit.runner.RunWith;

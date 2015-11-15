@@ -2,6 +2,7 @@ package ar.com.kfgodel.demo.bounce;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
+import ar.com.kfgodel.demo.DemoTestContext;
 import ar.com.kfgodel.processingo.api.space.Vector2d;
 import org.junit.runner.RunWith;
 

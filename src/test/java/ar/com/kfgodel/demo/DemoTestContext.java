@@ -1,8 +1,12 @@
-package ar.com.kfgodel.demo.bounce;
+package ar.com.kfgodel.demo;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.demo.ants.Ant;
 import ar.com.kfgodel.demo.ants.AntWorld;
+import ar.com.kfgodel.demo.bounce.BouncingBall;
+import ar.com.kfgodel.demo.conway.ConwayCamera;
+import ar.com.kfgodel.demo.conway.ConwayWorld;
+import ar.com.kfgodel.demo.conway.Snapshot;
 import ar.com.kfgodel.demo.ripple.RippleWave;
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.WorldClock;
@@ -39,4 +43,13 @@ public interface DemoTestContext extends TestContext {
 
   void antDirection(Supplier<Vector2d> definition);
   Vector2d antDirection();
+
+  ConwayCamera camera();
+  void camera(Supplier<ConwayCamera> definition);
+
+  ConwayWorld conwayWorld();
+  void conwayWorld(Supplier<ConwayWorld> definition);
+
+  Snapshot snapshot();
+  void snapshot(Supplier<Snapshot> definition);
 }
