@@ -22,13 +22,13 @@ import java.util.function.Supplier;
 public class DemoLangstonAnts {
   public static void main(String[] args) {
 
-    AntWorld world = AntWorld.create(Vector2d.xy(100, 80));
+    AntWorld world = AntWorld.create(Vector2d.xy(200, 150));
 
     Supplier<WorkerTask> workerStartConnector = ()->
-      WorkerTask.periodicWith(TimeQuantity.of(1, TimeUnit.MILLISECONDS), world::advanceOneTimeUnit);
+      WorkerTask.periodicWith(TimeQuantity.of(10, TimeUnit.MILLISECONDS), world::advanceOneTimeUnit);
 
 
-    ViewSize viewSize = ViewSize.of(640, 480);
+    ViewSize viewSize = ViewSize.of(800, 600);
     DescribeWorldPerFrameSketch sketch = DescribeWorldPerFrameSketch
       .create(ViewportDefinition.window(viewSize, ProcessingRenderer.P2D),
         AntWorldVisual.create(world, viewSize));
