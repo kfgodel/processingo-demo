@@ -1,5 +1,10 @@
 package ar.com.kfgodel.demo.conway;
 
+import ar.com.kfgodel.processingo.api.space.Vector2d;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
  * This type represents the infinite space of cells for conway's game of life
  * Created by tenpines on 14/11/15.
@@ -10,8 +15,8 @@ public interface ConwayWorld {
    */
   void advanceOneGeneration();
 
-  static ConwayWorld create() {
-    return ConwayWorldImpl.create();
+  static ConwayWorld create(Vector2d... survivingCells) {
+    return ConwayWorldImpl.create(new HashSet<>(Arrays.asList(survivingCells)));
   }
 
   /**

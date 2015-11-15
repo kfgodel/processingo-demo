@@ -6,7 +6,20 @@ package ar.com.kfgodel.demo.conway;
  */
 public interface CellState {
   static CellState surviving(){
-    return new CellState() {
-    };
+    return SurvivingState.INSTANCE;
   }
+
+  static CellState dying() {
+    return DyingState.INSTANCE;
+  }
+
+  static CellState emerging() {
+    return EmergingState.INSTANCE;
+  }
+
+  void whenSurviving(Runnable action);
+
+  void whenDying(Runnable action);
+
+  void whenEmerging(Runnable action);
 }

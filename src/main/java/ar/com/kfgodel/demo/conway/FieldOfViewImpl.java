@@ -24,6 +24,12 @@ public class FieldOfViewImpl implements FieldOfView {
   }
 
   @Override
+  public boolean includes(Vector2d position) {
+    return topLeft.x() <= position.x() && bottomRight.x() >= position.x()
+      && topLeft.y() <= position.y() && bottomRight.y() >= position.y();
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof FieldOfViewImpl)) return false;

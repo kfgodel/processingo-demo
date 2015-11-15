@@ -13,4 +13,6 @@ public interface FieldOfView {
   }
 
   Vector2d dimension();
+
+  boolean includes(Vector2d position);
 }

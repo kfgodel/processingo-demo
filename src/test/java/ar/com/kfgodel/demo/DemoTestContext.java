@@ -4,14 +4,14 @@ import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.demo.ants.Ant;
 import ar.com.kfgodel.demo.ants.AntWorld;
 import ar.com.kfgodel.demo.bounce.BouncingBall;
-import ar.com.kfgodel.demo.conway.ConwayCamera;
-import ar.com.kfgodel.demo.conway.ConwayWorld;
-import ar.com.kfgodel.demo.conway.Snapshot;
+import ar.com.kfgodel.demo.conway.*;
 import ar.com.kfgodel.demo.ripple.RippleWave;
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.WorldClock;
 import ar.com.kfgodel.processingo.api.space.Vector2d;
 
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
@@ -52,4 +52,19 @@ public interface DemoTestContext extends TestContext {
 
   Snapshot snapshot();
   void snapshot(Supplier<Snapshot> definition);
+
+  WorldAreaState areaState();
+  void areaState(Supplier<WorldAreaState> definition);
+
+  FieldOfView fieldOfView();
+  void fieldOfView(Supplier<FieldOfView> definition);
+
+  void cellStates(Supplier<Map<Vector2d, CellState>> definition);
+  Map<Vector2d, CellState> cellStates();
+
+  Set<Vector2d> previousCells();
+  void previousCells(Supplier<Set<Vector2d>> definition);
+
+  Set<Vector2d> currentCells();
+  void currentCells(Supplier<Set<Vector2d>> definition);
 }

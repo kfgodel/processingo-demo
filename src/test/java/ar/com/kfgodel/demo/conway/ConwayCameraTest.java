@@ -23,7 +23,7 @@ public class ConwayCameraTest extends JavaSpec<DemoTestContext> {
   public void define() {
     describe("a conway camera", () -> {
       context().camera(()-> ConwayCamera.create(Vector2d.xy(10,10), Vector2d.xy(100,80), context().conwayWorld()));
-      context().conwayWorld(()-> ConwayWorld.create());
+      context().conwayWorld(()-> ConwayWorld.create(Vector2d.xy(1, 1)));
 
       it("targets a cell position of the conways world", () -> {
         assertThat(context().camera().target()).isEqualTo(Vector2d.xy(10,10));

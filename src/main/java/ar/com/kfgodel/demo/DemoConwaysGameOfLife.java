@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public class DemoConwaysGameOfLife {
   public static void main(String[] args) {
 
-    ConwayWorld world = ConwayWorld.create();
+    ConwayWorld world = ConwayWorld.create(Vector2d.xy(1, 1));
     ConwayCamera camera = ConwayCamera.create(Vector2d.xy(0, 0), Vector2d.xy(100, 80), world);
 
     Supplier<WorkerTask> workerStartConnector = ()->
