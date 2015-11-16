@@ -36,8 +36,16 @@ public class WorldAreaStateTest extends JavaSpec<DemoTestContext> {
         assertThat(context().areaState().dimension()).isEqualTo(Vector2d.xy(4,5));
       });
 
+      describe("makeRelative", ()->{
+        context().fieldOfView(()-> FieldOfView.create(Vector2d.xy(-10, -10), Vector2d.xy(20, 20)));
+        it("changes a position to use the area's top left corner as origin", () -> {
+          Vector2d relativePosition = context().areaState().makeRelative(Vector2d.xy(0, 0));
+          assertThat(relativePosition).isEqualTo(Vector2d.xy(10, 10));
+        });
+      });
+
       describe("cellState", () -> {
-        context().cellStates(()-> context().areaState().cellStates());
+        context().cellStates(()-> context().areaState().activeCellStates());
 
         beforeEach(()->{
           when(context().fieldOfView().includes(any(Vector2d.class))).thenReturn(true);

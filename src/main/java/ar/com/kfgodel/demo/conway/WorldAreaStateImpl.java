@@ -29,7 +29,7 @@ public class WorldAreaStateImpl implements WorldAreaState {
   }
 
   @Override
-  public Map<Vector2d, CellState> cellStates() {
+  public Map<Vector2d, CellState> activeCellStates() {
     Map<Vector2d, CellState> statePerPosition = new HashMap<>();
 
     previousLivingCells.stream()
@@ -48,6 +48,11 @@ public class WorldAreaStateImpl implements WorldAreaState {
       .forEach((emergingPosition) -> statePerPosition.put(emergingPosition, CellState.emerging()));
 
     return statePerPosition;
+  }
+
+  @Override
+  public Vector2d makeRelative(Vector2d absolute) {
+    return fieldOfView.makeRelative(absolute);
   }
 
 }

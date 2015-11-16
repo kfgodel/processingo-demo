@@ -23,5 +23,13 @@ public interface WorldAreaState {
   /**
    * @return Each of the associated states for non dead cells
    */
-  Map<Vector2d, CellState> cellStates();
+  Map<Vector2d, CellState> activeCellStates();
+
+  /**
+   * Makes the given world position relative to this area (taking the top lef corner as 0,0)
+   * and the bottom right the positive infinities
+   * @param absolute The absolute position
+   * @return The relative to this area position
+   */
+  Vector2d makeRelative(Vector2d absolute);
 }

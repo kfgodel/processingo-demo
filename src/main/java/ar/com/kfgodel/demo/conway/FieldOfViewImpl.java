@@ -30,6 +30,11 @@ public class FieldOfViewImpl implements FieldOfView {
   }
 
   @Override
+  public Vector2d makeRelative(Vector2d absolute) {
+    return absolute.plus(topLeft.invert());
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof FieldOfViewImpl)) return false;
@@ -46,5 +51,10 @@ public class FieldOfViewImpl implements FieldOfView {
     int result = topLeft != null ? topLeft.hashCode() : 0;
     result = 31 * result + (bottomRight != null ? bottomRight.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "[" + topLeft + ", "+ bottomRight + "]";
   }
 }

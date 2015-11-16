@@ -52,9 +52,9 @@ public class SnapshotImpl implements Snapshot {
     dyingCells = new ArrayList<>();
     emergingCells = new ArrayList<>();
 
-    Set<Map.Entry<Vector2d, CellState>> entries = worldAreaState.cellStates().entrySet();
+    Set<Map.Entry<Vector2d, CellState>> entries = worldAreaState.activeCellStates().entrySet();
     for (Map.Entry<Vector2d, CellState> entry : entries) {
-      Vector2d cellPosition = entry.getKey();
+      Vector2d cellPosition = worldAreaState.makeRelative(entry.getKey());
       CellState cellState = entry.getValue();
       cellState.whenSurviving(() -> survivingCells.add(cellPosition));
       cellState.whenDying(() -> dyingCells.add(cellPosition));

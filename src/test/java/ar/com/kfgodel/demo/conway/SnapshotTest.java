@@ -33,7 +33,7 @@ public class SnapshotTest extends JavaSpec<DemoTestContext> {
 
       describe("when the area has all dead cells", () -> {
         beforeEach(()->{
-          when(context().areaState().cellStates()).thenReturn(new HashMap<>());
+          when(context().areaState().activeCellStates()).thenReturn(new HashMap<>());
         });
         it("has no surviving cells", () -> {
           assertThat(context().snapshot().survivingCells()).isEmpty();
@@ -52,7 +52,7 @@ public class SnapshotTest extends JavaSpec<DemoTestContext> {
           cellStates.put(Vector2d.xy(1,1), CellState.surviving());
           cellStates.put(Vector2d.xy(2,2), CellState.dying());
           cellStates.put(Vector2d.xy(3,3), CellState.emerging());
-          when(context().areaState().cellStates()).thenReturn(cellStates);
+          when(context().areaState().activeCellStates()).thenReturn(cellStates);
         });
         it("has no surviving cells", () -> {
           assertThat(context().snapshot().survivingCells().get(0)).isEqualTo(Vector2d.xy(1,1));

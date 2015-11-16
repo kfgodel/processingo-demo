@@ -15,4 +15,6 @@ public interface FieldOfView {
   Vector2d dimension();
 
   boolean includes(Vector2d position);
+
+  Vector2d makeRelative(Vector2d absolute);
 }

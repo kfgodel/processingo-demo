@@ -23,11 +23,14 @@ import java.util.function.Supplier;
 public class DemoConwaysGameOfLife {
   public static void main(String[] args) {
 
-    ConwayWorld world = ConwayWorld.create(Vector2d.xy(1, 1));
+    ConwayWorld world = ConwayWorld.create(
+      Vector2d.xy(-1, -1), Vector2d.xy(0, -1), Vector2d.xy(1, -1),
+      Vector2d.xy(-2, 0), Vector2d.xy(-1, 0), Vector2d.xy(0, 0), Vector2d.xy(1, 0)
+    );
     ConwayCamera camera = ConwayCamera.create(Vector2d.xy(0, 0), Vector2d.xy(100, 80), world);
 
     Supplier<WorkerTask> workerStartConnector = ()->
-      WorkerTask.periodicWith(TimeQuantity.of(10, TimeUnit.MILLISECONDS), world::advanceOneGeneration);
+      WorkerTask.periodicWith(TimeQuantity.of(600, TimeUnit.MILLISECONDS), world::advanceOneGeneration);
 
 
     ViewSize viewSize = ViewSize.of(800, 600);

@@ -67,4 +67,7 @@ public interface DemoTestContext extends TestContext {
 
   Set<Vector2d> currentCells();
   void currentCells(Supplier<Set<Vector2d>> definition);
+
+  Vector2d[] initialCells();
+  void initialCells(Supplier<Vector2d[]> definition);
 }
