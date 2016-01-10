@@ -45,7 +45,7 @@ public class DemoRippleClick {
           BackgroundVisual.create(0xAAAAAAAA)
             .applyOn(canvas);
           rippleWorld.ripples().forEach((wave) -> {
-            EllipseVisual.create(wave.position(), wave.radius(), wave.radius())
+            EllipseVisual.create(wave.position(), Mathe.vector(wave.radius(), wave.radius()))
             .applyOn(canvas);
           });
         }

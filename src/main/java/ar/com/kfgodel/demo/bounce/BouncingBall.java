@@ -2,6 +2,7 @@ package ar.com.kfgodel.demo.bounce;
 
 import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.mathe.api.Mathe;
+import ar.com.kfgodel.mathe.api.Scalar;
 
 /**
  * This type represents a bouncing ball that moves between a square space of [0,1],[0,1]
@@ -23,7 +24,7 @@ public interface BouncingBall {
   /**
    * Size of the ball indicated as radius
    */
-  float radius();
+  Scalar radius();
 
   /**
    * Creates a default bouncing ball centered in the space, with a default velocity
@@ -31,10 +32,6 @@ public interface BouncingBall {
    */
   static BouncingBall createDefault() {
     return BouncingBallImpl.create(defaultPosition(), Mathe.vector(0.02, 0.01), defaultRadius());
-  }
-
-  static BidiVector defaultPosition() {
-    return Mathe.vector(0.5, 0.5);
   }
 
   /**
@@ -51,15 +48,24 @@ public interface BouncingBall {
     return BouncingBallImpl.create(defaultPosition(), velocity, defaultRadius());
   }
 
-  static double defaultRadius() {
-    return 0.03;
+  static Scalar defaultRadius() {
+    return Mathe.scalar(0.03);
   }
 
-  float highestXPoint();
+  static BidiVector defaultPosition() {
+    return Mathe.vector(0.5, 0.5);
+  }
 
-  float lowestXPoint();
+  Scalar rightSide();
 
-  float highestYPoint();
+  Scalar leftSide();
 
-  float lowestYPoint();
+  Scalar bottomSide();
+
+  Scalar topSide();
+
+  /**
+   * @return The ball diameter (double of the radius)
+   */
+  Scalar diameter();
 }

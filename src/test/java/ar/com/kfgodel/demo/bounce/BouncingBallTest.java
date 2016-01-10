@@ -5,7 +5,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.demo.DemoTestContext;
 import org.junit.runner.RunWith;
 
-import static ar.com.kfgodel.mathe.api.Mathe.vector;
+import static ar.com.kfgodel.mathe.api.Mathe.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -20,7 +20,7 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
       context().ball(BouncingBall::createDefault);
 
       it("has a radius", () -> {
-        assertThat(context().ball().radius()).isEqualTo(0.03f);
+        assertThat(context().ball().radius()).isEqualTo(scalar(0.03));
       });
       it("has an default position", () -> {
         assertThat(context().ball().position()).isEqualTo(vector(0.5, 0.5));
@@ -32,76 +32,79 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
         context().ball().move();
         assertThat(context().ball().position()).isEqualTo(vector(0.52, 0.51));
       });
+      it("has a diameter",()->{
+        assertThat(context().ball().diameter()).isEqualTo(scalar(0.06));
+      });   
 
-      it("has a highest x point", () -> {
-        assertThat(context().ball().highestXPoint()).isEqualTo(context().ball().position().x().asFloat() + context().ball().radius());
+      it("has a right x point", () -> {
+        assertThat(context().ball().rightSide()).isEqualTo(context().ball().position().x().plus(context().ball().radius()));
       });
-      it("has a lowest x point", () -> {
-        assertThat(context().ball().lowestXPoint()).isEqualTo(context().ball().position().x().asFloat() - context().ball().radius());
+      it("has a left x point", () -> {
+        assertThat(context().ball().leftSide()).isEqualTo(context().ball().position().x().minus(context().ball().radius()));
       });
-      it("has a highest y point", () -> {
-        assertThat(context().ball().highestYPoint()).isEqualTo(context().ball().position().y().asFloat() + context().ball().radius());
+      it("has a bottom y point", () -> {
+        assertThat(context().ball().bottomSide()).isEqualTo(context().ball().position().y().plus(context().ball().radius()));
       });
-      it("has a lowest y point", () -> {
-        assertThat(context().ball().lowestYPoint()).isEqualTo(context().ball().position().y().asFloat() - context().ball().radius());
+      it("has a top y point", () -> {
+        assertThat(context().ball().topSide()).isEqualTo(context().ball().position().y().minus(context().ball().radius()));
       });
 
       describe("when velocity is positive", ()->{
         context().ball(()-> BouncingBall.withVelocity(vector(0.1, 0.2)));
-        describe("when positioned on the highest x", () -> {
+        describe("when positioned on the farther left", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(vector(1.0 - (context().ball().radius() / 2), 0.5));
+            context().ball().positionOn(vector(ONE_SCALAR.minus(context().ball().radius()), 0.5));
           });
           it("x velocity becomes negative if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().velocity().x().asFloat()).isEqualTo(-0.1f);
+            assertThat(context().ball().velocity().x()).isEqualTo(scalar(-0.1));
           });
-          it("highest x point becomes 1.0 if moved", () -> {
+          it("left side becomes 1.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().highestXPoint()).isEqualTo(1.0f);
+            assertThat(context().ball().rightSide()).isEqualTo(ONE_SCALAR);
           });
         });
-        describe("when positioned on the highest y", () -> {
+        describe("when positioned on the farther bottom", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(vector(0.5, 1.0 - context().ball().radius()  /2));
+            context().ball().positionOn(vector(0.5, ONE_SCALAR.minus(context().ball().radius())));
           });
           it("y velocity becomes negative if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().velocity().y().asFloat()).isEqualTo(-0.2f);
+            assertThat(context().ball().velocity().y()).isEqualTo(scalar(-0.2));
           });
-          it("highest y point becomes 1.0 if moved", () -> {
+          it("bottom side becomes 1.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().highestYPoint()).isEqualTo(1.0f);
+            assertThat(context().ball().bottomSide()).isEqualTo(ONE_SCALAR);
           });
         });
       });
 
       describe("when velocity is negative", ()->{
         context().ball(()-> BouncingBall.withVelocity(vector(-0.1, -0.2)));
-        describe("when positioned on the lowest x", () -> {
+        describe("when positioned on the farther right", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(vector(context().ball().radius() / 2, 0.5));
+            context().ball().positionOn(vector(context().ball().radius(), 0.5));
           });
           it("x velocity becomes positive if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().velocity().x().asFloat()).isEqualTo(0.1f);
+            assertThat(context().ball().velocity().x()).isEqualTo(scalar(0.1));
           });
-          it("lowest x point becomes 0.0 if moved", () -> {
+          it("top side becomes 0.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().lowestXPoint()).isEqualTo(0.0f);
+            assertThat(context().ball().leftSide()).isEqualTo(ZERO_SCALAR);
           });
         });
-        describe("when positioned on the lowest y", () -> {
+        describe("when positioned on the farther top", () -> {
           beforeEach(()->{
-            context().ball().positionOn(vector(0.5, context().ball().radius() / 2));
+            context().ball().positionOn(vector(0.5, context().ball().radius()));
           });
           it("y velocity becomes positive if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().velocity().y().asFloat()).isEqualTo(0.2f);
+            assertThat(context().ball().velocity().y()).isEqualTo(scalar(0.2));
           });
-          it("lowest y position becomes 0.0 if moved", () -> {
+          it("top side becomes 0.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().lowestYPoint()).isEqualTo(0.0f);
+            assertThat(context().ball().topSide()).isEqualTo(ZERO_SCALAR);
           });
         });
 

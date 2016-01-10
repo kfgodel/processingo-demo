@@ -1,8 +1,9 @@
 package ar.com.kfgodel.demo.bounce;
 
 import ar.com.kfgodel.mathe.api.BidiVector;
+import ar.com.kfgodel.mathe.api.Scalar;
 
-import static ar.com.kfgodel.mathe.api.Mathe.vector;
+import static ar.com.kfgodel.mathe.api.Mathe.*;
 
 /**
  * Implementation of the bouncing ball
@@ -12,13 +13,13 @@ public class BouncingBallImpl implements BouncingBall {
 
   private BidiVector position;
   private BidiVector velocity;
-  private float radius;
+  private Scalar radius;
 
-  public static BouncingBallImpl create(BidiVector position, BidiVector velocity, double radius) {
+  public static BouncingBallImpl create(BidiVector position, BidiVector velocity, Scalar radius) {
     BouncingBallImpl ball = new BouncingBallImpl();
     ball.position = position;
     ball.velocity = velocity;
-    ball.radius = (float) radius;
+    ball.radius = radius;
     return ball;
   }
 
@@ -33,31 +34,26 @@ public class BouncingBallImpl implements BouncingBall {
   }
 
   @Override
-  public float radius() {
+  public Scalar radius() {
     return radius;
   }
 
   @Override
   public void move() {
     BidiVector futurePosition = position.plus(velocity);
-    boolean bounced = false;
-    if(futurePosition.x().asDouble() + radius > 1.0){
-      bounced = true;
+    if(futurePosition.x().plus(radius).isGreaterThan(ONE_SCALAR)){
       velocity = velocity().invertX();
-      futurePosition = vector(1 - radius, futurePosition.y().asDouble());
-    } else if(futurePosition.x().asDouble() - radius < 0.0){
-      bounced = true;
+      futurePosition = vector(ONE_SCALAR.minus(radius), futurePosition.y());
+    } else if(futurePosition.x().minus(radius).isLessThan(ZERO_SCALAR)){
       velocity = velocity().invertX();
-      futurePosition = vector(0 + radius, futurePosition.y().asDouble());
+      futurePosition = vector(ZERO_SCALAR.plus(radius), futurePosition.y());
     }
-    if(futurePosition.y().asDouble() + radius > 1.0){
-      bounced = true;
+    if(futurePosition.y().plus(radius).isGreaterThan(ONE_SCALAR)){
       velocity = velocity().invertY();
-      futurePosition = vector(futurePosition.x().asDouble(), 1.0 - radius);
-    } else if(futurePosition.y().asDouble() - radius < 0.0){
-      bounced = true;
+      futurePosition = vector(futurePosition.x(), ONE_SCALAR.minus(radius));
+    } else if(futurePosition.y().minus(radius).isLessThan(ZERO_SCALAR)){
       velocity = velocity().invertY();
-      futurePosition = vector(futurePosition.x().asDouble(), 0 + radius);
+      futurePosition = vector(futurePosition.x(), ZERO_SCALAR.plus(radius));
     }
     positionOn(futurePosition);
   }
@@ -68,22 +64,27 @@ public class BouncingBallImpl implements BouncingBall {
   }
 
   @Override
-  public float highestXPoint() {
-    return position.x().asFloat() + radius;
+  public Scalar rightSide() {
+    return position.x().plus(radius);
   }
 
   @Override
-  public float lowestXPoint() {
-    return position.x().asFloat() - radius;
+  public Scalar leftSide() {
+    return position.x().minus(radius);
   }
 
   @Override
-  public float highestYPoint() {
-    return position.y().asFloat() + radius;
+  public Scalar bottomSide() {
+    return position.y().plus(radius);
   }
 
   @Override
-  public float lowestYPoint() {
-    return position.y().asFloat() - radius;
+  public Scalar topSide() {
+    return position.y().minus(radius);
+  }
+
+  @Override
+  public Scalar diameter() {
+    return radius().doubled();
   }
 }
