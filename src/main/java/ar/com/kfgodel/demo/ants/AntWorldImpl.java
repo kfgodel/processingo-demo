@@ -1,6 +1,7 @@
 package ar.com.kfgodel.demo.ants;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
+import ar.com.kfgodel.mathe.api.Mathe;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -11,15 +12,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class AntWorldImpl implements AntWorld {
 
-  private Vector2d cellSpace;
+  private BidiVector cellSpace;
   private Ant ant;
-  private Set<Vector2d> blackCells;
+  private Set<BidiVector> blackCells;
 
-  public static AntWorldImpl create(Vector2d cellSpace) {
+  public static AntWorldImpl create(BidiVector cellSpace) {
     AntWorldImpl world = new AntWorldImpl();
     world.cellSpace = cellSpace;
-    Vector2d initialAntPosition = cellSpace.scale(0.5).integered();
-    world.ant = Ant.create(initialAntPosition, Vector2d.xy(0, -1));
+    BidiVector initialAntPosition = cellSpace.scalarProduct(Mathe.scalar(0.5)).integered();
+    world.ant = Ant.create(initialAntPosition, Mathe.vector(0, -1));
     world.blackCells = new CopyOnWriteArraySet<>();
     return world;
   }
@@ -46,9 +47,9 @@ public class AntWorldImpl implements AntWorld {
   }
 
   private boolean antCanMove() {
-    Vector2d nextPosition = ant().nextPosition();
-    boolean willBeOnValidXSpace = nextPosition.x() >= 0 && nextPosition.x() < cellSpace.x();
-    boolean willBeOnValidYSpace = nextPosition.y() >= 0 && nextPosition.y() < cellSpace.y();
+    BidiVector nextPosition = ant().nextPosition();
+    boolean willBeOnValidXSpace = nextPosition.x().isGreaterOrEqualTo(Mathe.ZERO_SCALAR) && nextPosition.x().isLessThan(cellSpace.x());
+    boolean willBeOnValidYSpace = nextPosition.y().isGreaterOrEqualTo(Mathe.ZERO_SCALAR) && nextPosition.y().isLessThan(cellSpace.y());
     return willBeOnValidXSpace && willBeOnValidYSpace;
   }
 
@@ -57,7 +58,7 @@ public class AntWorldImpl implements AntWorld {
   }
 
   @Override
-  public Set<Vector2d> blackCells() {
+  public Set<BidiVector> blackCells() {
     return blackCells;
   }
 
@@ -67,12 +68,12 @@ public class AntWorldImpl implements AntWorld {
   }
 
   @Override
-  public Vector2d cellSpace() {
+  public BidiVector cellSpace() {
     return cellSpace;
   }
 
   @Override
-  public void setBlackCellOn(Vector2d cellCoordinate) {
+  public void setBlackCellOn(BidiVector cellCoordinate) {
     blackCells.add(cellCoordinate);
   }
 

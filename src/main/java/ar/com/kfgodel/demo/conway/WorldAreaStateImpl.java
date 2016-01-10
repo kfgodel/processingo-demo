@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,10 @@ import java.util.Set;
 public class WorldAreaStateImpl implements WorldAreaState {
 
   private FieldOfView fieldOfView;
-  private Set<Vector2d> previousLivingCells;
-  private Set<Vector2d> currentLivingCells;
+  private Set<BidiVector> previousLivingCells;
+  private Set<BidiVector> currentLivingCells;
 
-  public static WorldAreaStateImpl create(FieldOfView fieldOfView, Set<Vector2d> previousLivingCells, Set<Vector2d> currentLivingCells) {
+  public static WorldAreaStateImpl create(FieldOfView fieldOfView, Set<BidiVector> previousLivingCells, Set<BidiVector> currentLivingCells) {
     WorldAreaStateImpl state = new WorldAreaStateImpl();
     state.fieldOfView = fieldOfView;
     state.previousLivingCells = previousLivingCells;
@@ -24,13 +24,13 @@ public class WorldAreaStateImpl implements WorldAreaState {
   }
 
   @Override
-  public Vector2d dimension() {
+  public BidiVector dimension() {
     return fieldOfView.dimension();
   }
 
   @Override
-  public Map<Vector2d, CellState> activeCellStates() {
-    Map<Vector2d, CellState> statePerPosition = new HashMap<>();
+  public Map<BidiVector, CellState> activeCellStates() {
+    Map<BidiVector, CellState> statePerPosition = new HashMap<>();
 
     previousLivingCells.stream()
       .filter(fieldOfView::includes)
@@ -51,7 +51,7 @@ public class WorldAreaStateImpl implements WorldAreaState {
   }
 
   @Override
-  public Vector2d makeRelative(Vector2d absolute) {
+  public BidiVector makeRelative(BidiVector absolute) {
     return fieldOfView.makeRelative(absolute);
   }
 

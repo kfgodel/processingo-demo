@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,19 +11,19 @@ import java.util.Set;
  */
 public interface WorldAreaState {
 
-  static WorldAreaState create(FieldOfView fieldOfView, Set<Vector2d> previousLivingCells, Set<Vector2d> currentLivingCells) {
+  static WorldAreaState create(FieldOfView fieldOfView, Set<BidiVector> previousLivingCells, Set<BidiVector> currentLivingCells) {
     return WorldAreaStateImpl.create(fieldOfView, previousLivingCells, currentLivingCells);
   }
 
   /**
    * @return The width and height of this area
    */
-  Vector2d dimension();
+  BidiVector dimension();
 
   /**
    * @return Each of the associated states for non dead cells
    */
-  Map<Vector2d, CellState> activeCellStates();
+  Map<BidiVector, CellState> activeCellStates();
 
   /**
    * Makes the given world position relative to this area (taking the top lef corner as 0,0)
@@ -31,5 +31,5 @@ public interface WorldAreaState {
    * @param absolute The absolute position
    * @return The relative to this area position
    */
-  Vector2d makeRelative(Vector2d absolute);
+  BidiVector makeRelative(BidiVector absolute);
 }

@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Set;
 
@@ -10,9 +10,9 @@ import java.util.Set;
  */
 public interface NextGenerationCalculator {
 
-  static NextGenerationCalculator create(Set<Vector2d> livingCells) {
+  static NextGenerationCalculator create(Set<BidiVector> livingCells) {
     return NextGenerationCalculatorImpl.create(livingCells);
   }
 
-  Set<Vector2d> calculate();
+  Set<BidiVector> calculate();
 }

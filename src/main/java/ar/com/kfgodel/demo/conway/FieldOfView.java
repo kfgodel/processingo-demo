@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 /**
  * This type represents a segment of the conways world that is observable by a camera
@@ -8,13 +8,13 @@ import ar.com.kfgodel.processingo.api.space.Vector2d;
  */
 public interface FieldOfView {
 
-  static FieldOfView create(Vector2d topLeft, Vector2d bottomRight) {
+  static FieldOfView create(BidiVector topLeft, BidiVector bottomRight) {
     return FieldOfViewImpl.create(topLeft, bottomRight);
   }
 
-  Vector2d dimension();
+  BidiVector dimension();
 
-  boolean includes(Vector2d position);
+  boolean includes(BidiVector position);
 
-  Vector2d makeRelative(Vector2d absolute);
+  BidiVector makeRelative(BidiVector absolute);
 }

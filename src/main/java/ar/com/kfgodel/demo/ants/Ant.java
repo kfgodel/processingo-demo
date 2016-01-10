@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.ants;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 /**
  * This type represents the ant moving in langston ant world
@@ -8,13 +8,13 @@ import ar.com.kfgodel.processingo.api.space.Vector2d;
  */
 public interface Ant {
 
-  static Ant create(Vector2d initialPosition, Vector2d initialDirection) {
+  static Ant create(BidiVector initialPosition, BidiVector initialDirection) {
     return AntImpl.create(initialPosition, initialDirection);
   }
 
-  Vector2d position();
+  BidiVector position();
 
-  Vector2d direction();
+  BidiVector direction();
 
   void turnLeft();
 
@@ -25,5 +25,5 @@ public interface Ant {
   /**
    * The position the ant will occupy if advanced
    */
-  Vector2d nextPosition();
+  BidiVector nextPosition();
 }

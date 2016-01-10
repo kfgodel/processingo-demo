@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.ants;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Set;
 
@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public interface AntWorld {
 
-  static AntWorld create(Vector2d cellSpace) {
+  static AntWorld create(BidiVector cellSpace) {
     return AntWorldImpl.create(cellSpace);
   }
 
@@ -22,7 +22,7 @@ public interface AntWorld {
   /**
    * @return The cell coordinates for the black spaces
    */
-  Set<Vector2d> blackCells();
+  Set<BidiVector> blackCells();
 
   /**
    * @return The cell coordinate of the ant
@@ -32,9 +32,9 @@ public interface AntWorld {
   /**
    * @return Amount of horizontal and vertical cell (x, y)
    */
-  Vector2d cellSpace();
+  BidiVector cellSpace();
 
-  void setBlackCellOn(Vector2d cellCoordinate);
+  void setBlackCellOn(BidiVector cellCoordinate);
 
   void replaceAntWith(Ant newAnt);
 }

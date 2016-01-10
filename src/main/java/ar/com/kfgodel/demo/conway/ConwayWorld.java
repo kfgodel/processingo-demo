@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public interface ConwayWorld {
    */
   void advanceOneGeneration();
 
-  static ConwayWorld create(Vector2d... survivingCells) {
+  static ConwayWorld create(BidiVector... survivingCells) {
     return ConwayWorldImpl.create(new HashSet<>(Arrays.asList(survivingCells)));
   }
 

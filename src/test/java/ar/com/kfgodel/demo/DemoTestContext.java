@@ -8,7 +8,7 @@ import ar.com.kfgodel.demo.conway.*;
 import ar.com.kfgodel.demo.ripple.RippleWave;
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.WorldClock;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Map;
 import java.util.Set;
@@ -23,8 +23,8 @@ public interface DemoTestContext extends TestContext {
   BouncingBall ball();
   void ball(Supplier<BouncingBall> definition);
 
-  Vector2d velocity();
-  void velocity(Supplier<Vector2d> definition);
+  BidiVector velocity();
+  void velocity(Supplier<BidiVector> definition);
 
   RippleWave ripple();
   void ripple(Supplier<RippleWave> definition);
@@ -41,8 +41,8 @@ public interface DemoTestContext extends TestContext {
   void ant(Supplier<Ant> definition);
   Ant ant();
 
-  void antDirection(Supplier<Vector2d> definition);
-  Vector2d antDirection();
+  void antDirection(Supplier<BidiVector> definition);
+  BidiVector antDirection();
 
   ConwayCamera camera();
   void camera(Supplier<ConwayCamera> definition);
@@ -59,15 +59,15 @@ public interface DemoTestContext extends TestContext {
   FieldOfView fieldOfView();
   void fieldOfView(Supplier<FieldOfView> definition);
 
-  void cellStates(Supplier<Map<Vector2d, CellState>> definition);
-  Map<Vector2d, CellState> cellStates();
+  void cellStates(Supplier<Map<BidiVector, CellState>> definition);
+  Map<BidiVector, CellState> cellStates();
 
-  Set<Vector2d> previousCells();
-  void previousCells(Supplier<Set<Vector2d>> definition);
+  Set<BidiVector> previousCells();
+  void previousCells(Supplier<Set<BidiVector>> definition);
 
-  Set<Vector2d> currentCells();
-  void currentCells(Supplier<Set<Vector2d>> definition);
+  Set<BidiVector> currentCells();
+  void currentCells(Supplier<Set<BidiVector>> definition);
 
-  Vector2d[] initialCells();
-  void initialCells(Supplier<Vector2d[]> definition);
+  BidiVector[] initialCells();
+  void initialCells(Supplier<BidiVector[]> definition);
 }

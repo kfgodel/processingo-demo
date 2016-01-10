@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.ripple;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class RippleWorldImpl implements RippleWorld {
   }
 
   @Override
-  public void mouseClickedOn(Vector2d mousePosition) {
+  public void mouseClickedOn(BidiVector mousePosition) {
     waves.add(RippleWave.create(mousePosition, rippleLifespan(), clock));
   }
 

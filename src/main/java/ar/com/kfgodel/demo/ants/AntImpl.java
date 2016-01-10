@@ -1,16 +1,16 @@
 package ar.com.kfgodel.demo.ants;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 /**
  * Created by tenpines on 04/11/15.
  */
 public class AntImpl implements Ant {
 
-  private Vector2d position;
-  private Vector2d direction;
+  private BidiVector position;
+  private BidiVector direction;
 
-  public static AntImpl create(Vector2d initialPosition, Vector2d initialDirection) {
+  public static AntImpl create(BidiVector initialPosition, BidiVector initialDirection) {
     AntImpl ant = new AntImpl();
     ant.position = initialPosition;
     ant.direction = initialDirection;
@@ -18,12 +18,12 @@ public class AntImpl implements Ant {
   }
 
   @Override
-  public Vector2d position() {
+  public BidiVector position() {
     return position.integered();
   }
 
   @Override
-  public Vector2d direction() {
+  public BidiVector direction() {
     return direction.integered();
   }
 
@@ -43,7 +43,7 @@ public class AntImpl implements Ant {
   }
 
   @Override
-  public Vector2d nextPosition() {
+  public BidiVector nextPosition() {
     return position.plus(direction);
   }
 

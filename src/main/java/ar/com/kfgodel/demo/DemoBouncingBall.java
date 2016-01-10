@@ -1,9 +1,9 @@
 package ar.com.kfgodel.demo;
 
 import ar.com.kfgodel.demo.bounce.BouncingBall;
+import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.ProcessingSketch;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
 import ar.com.kfgodel.processingo.api.viewports.ViewportDefinition;
@@ -33,7 +33,7 @@ public class DemoBouncingBall {
         (canvas)-> {
           BackgroundVisual.create(0xAAAAAAAA)
             .applyOn(canvas);
-          EllipseVisual.create(ball.position().elementProduct(Vector2d.xy(640, 480)), ball.radius() * 640, ball.radius() * 480)
+          EllipseVisual.create(ball.position().componentProduct(Mathe.vector(640, 480)), ball.radius() * 640, ball.radius() * 480)
             .applyOn(canvas);
         });
     PappletRunner.create().run(sketch);

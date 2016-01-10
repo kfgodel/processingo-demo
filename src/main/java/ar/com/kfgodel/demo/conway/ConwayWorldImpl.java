@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
@@ -11,13 +11,13 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ConwayWorldImpl implements ConwayWorld {
 
-  private Set<Vector2d> currentLivingCells;
-  private Set<Vector2d> previousLivingCells;
+  private Set<BidiVector> currentLivingCells;
+  private Set<BidiVector> previousLivingCells;
   private ReentrantLock stateLock;
 
   @Override
   public void advanceOneGeneration() {
-    Set<Vector2d> nextLivingCells = calculateNextGeneration();
+    Set<BidiVector> nextLivingCells = calculateNextGeneration();
     stateLock.lock();
     try {
       previousLivingCells = currentLivingCells;
@@ -27,11 +27,11 @@ public class ConwayWorldImpl implements ConwayWorld {
     }
   }
 
-  private Set<Vector2d> calculateNextGeneration() {
+  private Set<BidiVector> calculateNextGeneration() {
     return NextGenerationCalculator.create(currentLivingCells).calculate();
   }
 
-  public static ConwayWorldImpl create(Set<Vector2d> survivingCells) {
+  public static ConwayWorldImpl create(Set<BidiVector> survivingCells) {
     ConwayWorldImpl world = new ConwayWorldImpl();
     world.currentLivingCells = survivingCells;
     world.previousLivingCells = survivingCells;

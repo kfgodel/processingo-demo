@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.ripple;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 
 /**
@@ -8,12 +8,12 @@ import ar.com.kfgodel.processingo.api.time.TimeQuantity;
  */
 public class RippleWaveImpl implements RippleWave {
 
-  private Vector2d position;
+  private BidiVector position;
   private TimeQuantity lifeSpan;
   private WorldClock clock;
   private long startTime;
 
-  public static RippleWaveImpl create(Vector2d position, TimeQuantity lifeSpan, WorldClock clock) {
+  public static RippleWaveImpl create(BidiVector position, TimeQuantity lifeSpan, WorldClock clock) {
     RippleWaveImpl wave = new RippleWaveImpl();
     wave.position = position;
     wave.lifeSpan = lifeSpan;
@@ -23,7 +23,7 @@ public class RippleWaveImpl implements RippleWave {
   }
 
   @Override
-  public Vector2d position() {
+  public BidiVector position() {
     return position;
   }
 

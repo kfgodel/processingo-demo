@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +14,12 @@ import java.util.Set;
 public class SnapshotImpl implements Snapshot {
 
   private WorldAreaState worldAreaState;
-  private List<Vector2d> survivingCells;
-  private List<Vector2d> dyingCells;
-  private List<Vector2d> emergingCells;
+  private List<BidiVector> survivingCells;
+  private List<BidiVector> dyingCells;
+  private List<BidiVector> emergingCells;
 
   @Override
-  public List<Vector2d> survivingCells() {
+  public List<BidiVector> survivingCells() {
     if (survivingCells == null) {
       classifyCellsbyState();
     }
@@ -27,7 +27,7 @@ public class SnapshotImpl implements Snapshot {
   }
 
   @Override
-  public List<Vector2d> dyingCells() {
+  public List<BidiVector> dyingCells() {
     if (dyingCells == null) {
       classifyCellsbyState();
     }
@@ -35,7 +35,7 @@ public class SnapshotImpl implements Snapshot {
   }
 
   @Override
-  public List<Vector2d> emergingCells() {
+  public List<BidiVector> emergingCells() {
     if (emergingCells == null) {
       classifyCellsbyState();
     }
@@ -43,7 +43,7 @@ public class SnapshotImpl implements Snapshot {
   }
 
   @Override
-  public Vector2d dimension() {
+  public BidiVector dimension() {
     return worldAreaState.dimension();
   }
 
@@ -52,9 +52,9 @@ public class SnapshotImpl implements Snapshot {
     dyingCells = new ArrayList<>();
     emergingCells = new ArrayList<>();
 
-    Set<Map.Entry<Vector2d, CellState>> entries = worldAreaState.activeCellStates().entrySet();
-    for (Map.Entry<Vector2d, CellState> entry : entries) {
-      Vector2d cellPosition = worldAreaState.makeRelative(entry.getKey());
+    Set<Map.Entry<BidiVector, CellState>> entries = worldAreaState.activeCellStates().entrySet();
+    for (Map.Entry<BidiVector, CellState> entry : entries) {
+      BidiVector cellPosition = worldAreaState.makeRelative(entry.getKey());
       CellState cellState = entry.getValue();
       cellState.whenSurviving(() -> survivingCells.add(cellPosition));
       cellState.whenDying(() -> dyingCells.add(cellPosition));

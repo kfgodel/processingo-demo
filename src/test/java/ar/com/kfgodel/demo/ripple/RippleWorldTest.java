@@ -3,12 +3,12 @@ package ar.com.kfgodel.demo.ripple;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.demo.DemoTestContext;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -36,7 +36,7 @@ public class RippleWorldTest extends JavaSpec<DemoTestContext> {
 
       describe("when the mouse is clicked", ()->{
         beforeEach(()->{
-          context().rippleWorld().mouseClickedOn(Vector2d.xy(1,2));
+          context().rippleWorld().mouseClickedOn(vector(1, 2));
         });
 
         it("creates a new ripple", () -> {
@@ -44,7 +44,7 @@ public class RippleWorldTest extends JavaSpec<DemoTestContext> {
         });
 
         it("centers the ripple on the clicked position", () -> {
-          assertThat(context().rippleWorld().ripples().get(0).position()).isEqualTo(Vector2d.xy(1,2));
+          assertThat(context().rippleWorld().ripples().get(0).position()).isEqualTo(vector(1,2));
         });
 
         it("keeps the ripple during its lifespan", () -> {

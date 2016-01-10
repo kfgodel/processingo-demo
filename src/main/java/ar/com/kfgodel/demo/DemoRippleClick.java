@@ -2,9 +2,9 @@ package ar.com.kfgodel.demo;
 
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.SystemWorldClock;
+import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.input.MouseEventContext;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
 import ar.com.kfgodel.processingo.api.viewports.ViewportDefinition;
@@ -32,7 +32,7 @@ public class DemoRippleClick {
 
     // Function<MouseEvent,WorkerTask> ? Take it from the represented world configuration?
     Function<MouseEventContext, WorkerTask> mouseClickConnector = (mouseEvent)->{
-      return (worker)-> rippleWorld.mouseClickedOn(Vector2d.xy(mouseEvent.mouseX(), mouseEvent.mouseY()));
+      return (worker)-> rippleWorld.mouseClickedOn(Mathe.vector(mouseEvent.mouseX(), mouseEvent.mouseY()));
     };
 
     Supplier<WorkerTask> workerStartConnector = ()->

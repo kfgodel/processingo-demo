@@ -1,7 +1,8 @@
 package ar.com.kfgodel.demo.ants;
 
+import ar.com.kfgodel.mathe.api.BidiVector;
+import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.original.ProcessingCanvas;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
 import ar.com.kfgodel.processingo.api.visuals.VisualDescription;
 import ar.com.kfgodel.processingo.impl.visuals.BackgroundVisual;
@@ -17,7 +18,7 @@ public class AntWorldVisual implements VisualDescription {
 
   private AntWorld world;
   private ViewSize viewSize;
-  private Vector2d cellSize;
+  private BidiVector cellSize;
 
   @Override
   public void applyOn(ProcessingCanvas canvas) {
@@ -34,27 +35,27 @@ public class AntWorldVisual implements VisualDescription {
     antRectangle.applyOn(canvas);
   }
 
-  private RectangleVisual convertToRectangles(Vector2d blackCell) {
-    Vector2d position = blackCell.elementProduct(getCellSize());
-    Vector2d cellSize = getCellSize();
+  private RectangleVisual convertToRectangles(BidiVector blackCell) {
+    BidiVector position = blackCell.componentProduct(getCellSize());
+    BidiVector cellSize = getCellSize();
     return RectangleVisual.create(position, cellSize);
   }
 
-  private Vector2d getCellSize() {
+  private BidiVector getCellSize() {
     if(cellSize == null){
       cellSize = calculateCellSize();
     }
     return cellSize;
   }
 
-  private Vector2d calculateCellSize() {
-    float amountOfHorizontalCells = world.cellSpace().x();
+  private BidiVector calculateCellSize() {
+    float amountOfHorizontalCells = world.cellSpace().x().asFloat();
     float cellWidth = viewSize.width() / amountOfHorizontalCells;
 
-    float amountOfVerticalCells = world.cellSpace().y();
+    float amountOfVerticalCells = world.cellSpace().y().asFloat();
     float cellHeight = viewSize.height() / amountOfVerticalCells;
 
-    return Vector2d.xy(cellWidth, cellHeight);
+    return Mathe.vector(cellWidth, cellHeight);
   }
 
   public static AntWorldVisual create(AntWorld world, ViewSize viewSize) {

@@ -1,11 +1,13 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 
 /**
  * This type implements the rules of the conways game
@@ -13,16 +15,16 @@ import java.util.stream.Collectors;
  */
 public class NextGenerationCalculatorImpl implements NextGenerationCalculator {
 
-  private static final Vector2d[] RELATIVE_NEIGHBORS = new Vector2d[]{
-    Vector2d.xy(-1,-1),Vector2d.xy(0,-1),Vector2d.xy(1,-1),
-    Vector2d.xy(-1,0),                    Vector2d.xy(1,0),
-    Vector2d.xy(-1,1),Vector2d.xy(0,1),Vector2d.xy(1,1),
+  private static final BidiVector[] RELATIVE_NEIGHBORS = new BidiVector[]{
+    vector(-1,-1),vector(0,-1),vector(1,-1),
+    vector(-1,0),              vector(1,0),
+    vector(-1,1),vector(0,1), vector(1,1),
   };
 
-  private Set<Vector2d> livingCells;
-  private Set<Vector2d> deadNeighbors;
+  private Set<BidiVector> livingCells;
+  private Set<BidiVector> deadNeighbors;
 
-  public static NextGenerationCalculatorImpl create(Set<Vector2d> livingCells){
+  public static NextGenerationCalculatorImpl create(Set<BidiVector> livingCells){
       NextGenerationCalculatorImpl calculator = new NextGenerationCalculatorImpl();
       calculator.livingCells = livingCells;
       calculator.deadNeighbors = new HashSet<>();
@@ -30,29 +32,29 @@ public class NextGenerationCalculatorImpl implements NextGenerationCalculator {
   }
 
   @Override
-  public Set<Vector2d> calculate() {
-    Set<Vector2d> nextLivingCells = new HashSet<>();
+  public Set<BidiVector> calculate() {
+    Set<BidiVector> nextLivingCells = new HashSet<>();
     nextLivingCells.addAll(calculateSurvivors());
     nextLivingCells.addAll(calculateEmergents());
     return nextLivingCells;
   }
 
-  private Set<Vector2d> calculateEmergents() {
+  private Set<BidiVector> calculateEmergents() {
     return deadNeighbors.stream()
       .filter(this::canRevive)
       .collect(Collectors.toSet());
   }
 
-  private Set<Vector2d> calculateSurvivors() {
+  private Set<BidiVector> calculateSurvivors() {
     return livingCells.stream()
       .filter(this::canSurvive)
       .collect(Collectors.toSet());
   }
 
-  private boolean canSurvive(Vector2d livingCell) {
-    Set<Vector2d> neighbors = calculateNeighborsOf(livingCell);
+  private boolean canSurvive(BidiVector livingCell) {
+    Set<BidiVector> neighbors = calculateNeighborsOf(livingCell);
     int livingNeighbors = 0;
-    for (Vector2d neighbor : neighbors) {
+    for (BidiVector neighbor : neighbors) {
       if(livingCells.contains(neighbor)){
         livingNeighbors++;
       }else{
@@ -63,16 +65,16 @@ public class NextGenerationCalculatorImpl implements NextGenerationCalculator {
     return livingNeighbors == 2 || livingNeighbors == 3;
   }
 
-  private Set<Vector2d> calculateNeighborsOf(Vector2d livingCell) {
+  private Set<BidiVector> calculateNeighborsOf(BidiVector livingCell) {
     return Arrays.stream(RELATIVE_NEIGHBORS)
       .map(livingCell::plus)
       .collect(Collectors.toSet());
   }
 
-  private boolean canRevive(Vector2d deadCell) {
-    Set<Vector2d> neighbors = calculateNeighborsOf(deadCell);
+  private boolean canRevive(BidiVector deadCell) {
+    Set<BidiVector> neighbors = calculateNeighborsOf(deadCell);
     int livingNeighbors = 0;
-    for (Vector2d neighbor : neighbors) {
+    for (BidiVector neighbor : neighbors) {
       if(livingCells.contains(neighbor)){
         livingNeighbors++;
       }

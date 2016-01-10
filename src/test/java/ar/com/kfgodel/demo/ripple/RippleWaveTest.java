@@ -3,12 +3,12 @@ package ar.com.kfgodel.demo.ripple;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.demo.DemoTestContext;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,11 +22,11 @@ public class RippleWaveTest extends JavaSpec<DemoTestContext> {
   @Override
   public void define() {
     describe("a ripple wave", () -> {
-      context().ripple(()-> RippleWave.create(Vector2d.xy(1,2), TimeQuantity.of(2, TimeUnit.SECONDS), context().clock()));
+      context().ripple(()-> RippleWave.create(vector(1,2), TimeQuantity.of(2, TimeUnit.SECONDS), context().clock()));
       context().clock(()-> mock(WorldClock.class));
 
       it("has a position", () -> {
-        assertThat(context().ripple().position()).isEqualTo(Vector2d.xy(1, 2));
+        assertThat(context().ripple().position()).isEqualTo(vector(1, 2));
       });
       it("starts with a 0 radius", () -> {
         when(context().clock().currentMillis())

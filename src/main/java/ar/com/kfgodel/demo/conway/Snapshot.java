@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ public interface Snapshot {
   /**
    * @return The positions relative to this snapshot that contains living cells from previous generation
    */
-  List<Vector2d> survivingCells();
+  List<BidiVector> survivingCells();
 
   /**
    * @return The positions relative to this snapshot that contains cells dying in this generation
    */
-  List<Vector2d> dyingCells();
+  List<BidiVector> dyingCells();
 
   /**
    * @return The positions relative to this snapshot that contains cells appearing in this generation
    */
-  List<Vector2d> emergingCells();
+  List<BidiVector> emergingCells();
 
   /**
    * @return The cell size of this snapshot
    */
-  Vector2d dimension();
+  BidiVector dimension();
 
   static Snapshot create(WorldAreaState areaState) {
     return SnapshotImpl.create(areaState);

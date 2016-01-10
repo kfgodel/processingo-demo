@@ -1,6 +1,7 @@
 package ar.com.kfgodel.demo.bounce;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
+import ar.com.kfgodel.mathe.api.Mathe;
 
 /**
  * This type represents a bouncing ball that moves between a square space of [0,1],[0,1]
@@ -12,12 +13,12 @@ public interface BouncingBall {
   /**
    * Velocity of this ball
    */
-  Vector2d velocity();
+  BidiVector velocity();
 
   /**
    * Current position of the ball
    */
-  Vector2d position();
+  BidiVector position();
 
   /**
    * Size of the ball indicated as radius
@@ -29,11 +30,11 @@ public interface BouncingBall {
    * @return The created ball
    */
   static BouncingBall createDefault() {
-    return BouncingBallImpl.create(defaultPosition(), Vector2d.xy(0.02, 0.01), defaultRadius());
+    return BouncingBallImpl.create(defaultPosition(), Mathe.vector(0.02, 0.01), defaultRadius());
   }
 
-  static Vector2d defaultPosition() {
-    return Vector2d.xy(0.5, 0.5);
+  static BidiVector defaultPosition() {
+    return Mathe.vector(0.5, 0.5);
   }
 
   /**
@@ -44,9 +45,9 @@ public interface BouncingBall {
   /**
    * Changes the position of the ball to the given position
    */
-  void positionOn(Vector2d newPosition);
+  void positionOn(BidiVector newPosition);
 
-  static BouncingBall withVelocity(Vector2d velocity) {
+  static BouncingBall withVelocity(BidiVector velocity) {
     return BouncingBallImpl.create(defaultPosition(), velocity, defaultRadius());
   }
 

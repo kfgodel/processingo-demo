@@ -1,7 +1,8 @@
 package ar.com.kfgodel.demo.conway;
 
+import ar.com.kfgodel.mathe.api.BidiVector;
+import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.original.ProcessingCanvas;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
 import ar.com.kfgodel.processingo.api.visuals.VisualDescription;
 import ar.com.kfgodel.processingo.impl.visuals.RectangleVisual;
@@ -15,7 +16,7 @@ import java.awt.*;
 public class SnapshotVisual implements VisualDescription {
   private Snapshot snapshot;
   private ViewSize pixelSpace;
-  private Vector2d cellSize;
+  private BidiVector cellSize;
 
   @Override
   public void applyOn(ProcessingCanvas canvas) {
@@ -35,27 +36,27 @@ public class SnapshotVisual implements VisualDescription {
       .forEach((rectangle) -> rectangle.applyOn(canvas));
   }
 
-  private RectangleVisual convertToRectangles(Vector2d cellPosition) {
-    Vector2d position = cellPosition.elementProduct(getCellSize());
-    Vector2d cellSize = getCellSize();
+  private RectangleVisual convertToRectangles(BidiVector cellPosition) {
+    BidiVector position = cellPosition.componentProduct(getCellSize());
+    BidiVector cellSize = getCellSize();
     return RectangleVisual.create(position, cellSize);
   }
 
-  private Vector2d getCellSize() {
+  private BidiVector getCellSize() {
     if(cellSize == null){
       cellSize = calculateCellSize();
     }
     return cellSize;
   }
 
-  private Vector2d calculateCellSize() {
-    float amountOfHorizontalCells = snapshot.dimension().x();
+  private BidiVector calculateCellSize() {
+    float amountOfHorizontalCells = snapshot.dimension().x().asFloat();
     float cellWidth = pixelSpace.width() / amountOfHorizontalCells;
 
-    float amountOfVerticalCells = snapshot.dimension().y();
+    float amountOfVerticalCells = snapshot.dimension().y().asFloat();
     float cellHeight = pixelSpace.height() / amountOfVerticalCells;
 
-    return Vector2d.xy(cellWidth, cellHeight);
+    return Mathe.vector(cellWidth, cellHeight);
   }
 
 

@@ -1,6 +1,8 @@
 package ar.com.kfgodel.demo.bounce;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
+
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 
 /**
  * Implementation of the bouncing ball
@@ -8,11 +10,11 @@ import ar.com.kfgodel.processingo.api.space.Vector2d;
  */
 public class BouncingBallImpl implements BouncingBall {
 
-  private Vector2d position;
-  private Vector2d velocity;
+  private BidiVector position;
+  private BidiVector velocity;
   private float radius;
 
-  public static BouncingBallImpl create(Vector2d position, Vector2d velocity, double radius) {
+  public static BouncingBallImpl create(BidiVector position, BidiVector velocity, double radius) {
     BouncingBallImpl ball = new BouncingBallImpl();
     ball.position = position;
     ball.velocity = velocity;
@@ -21,12 +23,12 @@ public class BouncingBallImpl implements BouncingBall {
   }
 
   @Override
-  public Vector2d velocity() {
+  public BidiVector velocity() {
     return velocity;
   }
 
   @Override
-  public Vector2d position() {
+  public BidiVector position() {
     return position;
   }
 
@@ -37,51 +39,51 @@ public class BouncingBallImpl implements BouncingBall {
 
   @Override
   public void move() {
-    Vector2d futurePosition = position.plus(velocity);
+    BidiVector futurePosition = position.plus(velocity);
     boolean bounced = false;
-    if(futurePosition.x() + radius > 1.0){
+    if(futurePosition.x().asDouble() + radius > 1.0){
       bounced = true;
       velocity = velocity().invertX();
-      futurePosition = Vector2d.xy(1 - radius, futurePosition.y());
-    } else if(futurePosition.x() - radius < 0.0){
+      futurePosition = vector(1 - radius, futurePosition.y().asDouble());
+    } else if(futurePosition.x().asDouble() - radius < 0.0){
       bounced = true;
       velocity = velocity().invertX();
-      futurePosition = Vector2d.xy(0 + radius, futurePosition.y());
+      futurePosition = vector(0 + radius, futurePosition.y().asDouble());
     }
-    if(futurePosition.y() + radius > 1.0){
+    if(futurePosition.y().asDouble() + radius > 1.0){
       bounced = true;
       velocity = velocity().invertY();
-      futurePosition = Vector2d.xy(futurePosition.x(), 1.0 - radius);
-    } else if(futurePosition.y() - radius < 0.0){
+      futurePosition = vector(futurePosition.x().asDouble(), 1.0 - radius);
+    } else if(futurePosition.y().asDouble() - radius < 0.0){
       bounced = true;
       velocity = velocity().invertY();
-      futurePosition = Vector2d.xy(futurePosition.x(), 0 + radius);
+      futurePosition = vector(futurePosition.x().asDouble(), 0 + radius);
     }
     positionOn(futurePosition);
   }
 
   @Override
-  public void positionOn(Vector2d newPosition) {
+  public void positionOn(BidiVector newPosition) {
     this.position = newPosition;
   }
 
   @Override
   public float highestXPoint() {
-    return position.x() + radius;
+    return position.x().asFloat() + radius;
   }
 
   @Override
   public float lowestXPoint() {
-    return position.x() - radius;
+    return position.x().asFloat() - radius;
   }
 
   @Override
   public float highestYPoint() {
-    return position.y() + radius;
+    return position.y().asFloat() + radius;
   }
 
   @Override
   public float lowestYPoint() {
-    return position.y() - radius;
+    return position.y().asFloat() - radius;
   }
 }

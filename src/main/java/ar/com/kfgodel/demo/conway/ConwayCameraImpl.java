@@ -1,6 +1,8 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
+
+import static ar.com.kfgodel.mathe.api.Mathe.scalar;
 
 /**
  * Implementation of the camera
@@ -9,8 +11,8 @@ import ar.com.kfgodel.processingo.api.space.Vector2d;
 public class ConwayCameraImpl implements ConwayCamera {
 
   private ConwayWorld world;
-  private Vector2d target;
-  private Vector2d size;
+  private BidiVector target;
+  private BidiVector size;
 
   @Override
   public Snapshot takeSnapshot() {
@@ -20,13 +22,13 @@ public class ConwayCameraImpl implements ConwayCamera {
   }
 
   private FieldOfView calculateFieldOfView() {
-    Vector2d margin = size.scale(0.5);
-    Vector2d topLeft = Vector2d.xy(target.x() - margin.x(), target.y() - margin.y());
-    Vector2d bottomRight = Vector2d.xy(target.x() + margin.x(), target.y() + margin.y());
+    BidiVector margin = size.scalarProduct(scalar(0.5));
+    BidiVector topLeft = target.minus(margin);
+    BidiVector bottomRight = target.plus(margin);
     return FieldOfView.create(topLeft, bottomRight);
   }
 
-  public static ConwayCameraImpl create(Vector2d target, Vector2d size, ConwayWorld world) {
+  public static ConwayCameraImpl create(BidiVector target, BidiVector size, ConwayWorld world) {
     ConwayCameraImpl camera = new ConwayCameraImpl();
     camera.world = world;
     camera.target = target;
@@ -35,12 +37,12 @@ public class ConwayCameraImpl implements ConwayCamera {
   }
 
   @Override
-  public Vector2d target() {
+  public BidiVector target() {
     return target;
   }
 
   @Override
-  public Vector2d size() {
+  public BidiVector size() {
     return size;
   }
 

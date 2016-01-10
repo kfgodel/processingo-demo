@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 /**
  * This type represents a limited size view of a conway game of life infinite space
@@ -15,17 +15,17 @@ public interface ConwayCamera {
    */
   Snapshot takeSnapshot();
 
-  static ConwayCamera create(Vector2d target, Vector2d size, ConwayWorld world) {
+  static ConwayCamera create(BidiVector target, BidiVector size, ConwayWorld world) {
     return ConwayCameraImpl.create(target, size, world);
   }
 
   /**
    * @return The cell this camera is targeting at
    */
-  Vector2d target();
+  BidiVector target();
 
   /**
    * @return The 2d dimensions of this camera view in terms of cells
    */
-  Vector2d size();
+  BidiVector size();
 }

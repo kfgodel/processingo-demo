@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.conway;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 
 /**
  * Implementation of the field of view
@@ -8,10 +8,10 @@ import ar.com.kfgodel.processingo.api.space.Vector2d;
  */
 public class FieldOfViewImpl implements FieldOfView {
 
-  private Vector2d topLeft;
-  private Vector2d bottomRight;
+  private BidiVector topLeft;
+  private BidiVector bottomRight;
 
-  public static FieldOfViewImpl create(Vector2d topLeft, Vector2d bottomRight) {
+  public static FieldOfViewImpl create(BidiVector topLeft, BidiVector bottomRight) {
     FieldOfViewImpl fieldOfView = new FieldOfViewImpl();
     fieldOfView.topLeft = topLeft;
     fieldOfView.bottomRight = bottomRight;
@@ -19,18 +19,18 @@ public class FieldOfViewImpl implements FieldOfView {
   }
 
   @Override
-  public Vector2d dimension() {
-    return Vector2d.xy(bottomRight.x() - topLeft.x(), bottomRight.y() - topLeft.y());
+  public BidiVector dimension() {
+    return bottomRight.minus(topLeft);
   }
 
   @Override
-  public boolean includes(Vector2d position) {
-    return topLeft.x() <= position.x() && bottomRight.x() >= position.x()
-      && topLeft.y() <= position.y() && bottomRight.y() >= position.y();
+  public boolean includes(BidiVector position) {
+    return topLeft.x().isLessOrEqualTo(position.x()) && bottomRight.x().isGreaterOrEqualTo(position.x())
+      && topLeft.y().isLessOrEqualTo(position.y()) && bottomRight.y().isGreaterOrEqualTo(position.y());
   }
 
   @Override
-  public Vector2d makeRelative(Vector2d absolute) {
+  public BidiVector makeRelative(BidiVector absolute) {
     return absolute.plus(topLeft.invert());
   }
 

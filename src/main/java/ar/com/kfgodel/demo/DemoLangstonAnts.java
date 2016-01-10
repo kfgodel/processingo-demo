@@ -2,8 +2,8 @@ package ar.com.kfgodel.demo;
 
 import ar.com.kfgodel.demo.ants.AntWorld;
 import ar.com.kfgodel.demo.ants.AntWorldVisual;
+import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
 import ar.com.kfgodel.processingo.api.viewports.ViewportDefinition;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 public class DemoLangstonAnts {
   public static void main(String[] args) {
 
-    AntWorld world = AntWorld.create(Vector2d.xy(200, 150));
+    AntWorld world = AntWorld.create(Mathe.vector(200, 150));
 
     Supplier<WorkerTask> workerStartConnector = ()->
       WorkerTask.periodicWith(TimeQuantity.of(10, TimeUnit.MILLISECONDS), world::advanceOneTimeUnit);

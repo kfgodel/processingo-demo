@@ -3,13 +3,15 @@ package ar.com.kfgodel.demo.conway;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.demo.DemoTestContext;
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 import org.junit.runner.RunWith;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,9 +28,9 @@ public class SnapshotTest extends JavaSpec<DemoTestContext> {
       context().areaState(()-> mock(WorldAreaState.class));
 
       it("has the dimension of the area", () -> {
-        when(context().areaState().dimension()).thenReturn(Vector2d.xy(2,3));
+        when(context().areaState().dimension()).thenReturn(vector(2, 3));
 
-        assertThat(context().snapshot().dimension()).isEqualTo(Vector2d.xy(2,3));
+        assertThat(context().snapshot().dimension()).isEqualTo(vector(2,3));
       });
 
       describe("when the area has all dead cells", () -> {
@@ -48,20 +50,21 @@ public class SnapshotTest extends JavaSpec<DemoTestContext> {
 
       describe("when the area has one of each type of cells", () -> {
         beforeEach(()->{
-          Map<Vector2d, CellState> cellStates = new HashMap<>();
-          cellStates.put(Vector2d.xy(1,1), CellState.surviving());
-          cellStates.put(Vector2d.xy(2,2), CellState.dying());
-          cellStates.put(Vector2d.xy(3,3), CellState.emerging());
+          Map<BidiVector, CellState> cellStates = new HashMap<>();
+          cellStates.put(vector(1,1), CellState.surviving());
+          cellStates.put(vector(2,2), CellState.dying());
+          cellStates.put(vector(3,3), CellState.emerging());
           when(context().areaState().activeCellStates()).thenReturn(cellStates);
+          when(context().areaState().makeRelative(any(BidiVector.class))).thenReturn(vector(1,1), vector(2,2), vector(3,3));
         });
         it("has no surviving cells", () -> {
-          assertThat(context().snapshot().survivingCells().get(0)).isEqualTo(Vector2d.xy(1,1));
+          assertThat(context().snapshot().survivingCells().get(0)).isEqualTo(vector(1,1));
         });
         it("has no dying cells", () -> {
-          assertThat(context().snapshot().dyingCells().get(0)).isEqualTo(Vector2d.xy(2,2));
+          assertThat(context().snapshot().dyingCells().get(0)).isEqualTo(vector(2,2));
         });
         it("has no emerging cells", () -> {
-          assertThat(context().snapshot().emergingCells().get(0)).isEqualTo(Vector2d.xy(3,3));
+          assertThat(context().snapshot().emergingCells().get(0)).isEqualTo(vector(3,3));
         });
       });
 

@@ -1,6 +1,6 @@
 package ar.com.kfgodel.demo.ripple;
 
-import ar.com.kfgodel.processingo.api.space.Vector2d;
+import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 
 /**
@@ -10,11 +10,11 @@ import ar.com.kfgodel.processingo.api.time.TimeQuantity;
  */
 public interface RippleWave {
 
-  static RippleWave create(Vector2d position, TimeQuantity lifeSpan, WorldClock worldClock) {
+  static RippleWave create(BidiVector position, TimeQuantity lifeSpan, WorldClock worldClock) {
     return RippleWaveImpl.create(position, lifeSpan, worldClock);
   }
 
-  Vector2d position();
+  BidiVector position();
 
   float radius();
 
