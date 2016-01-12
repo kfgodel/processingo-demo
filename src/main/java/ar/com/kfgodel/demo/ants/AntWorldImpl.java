@@ -19,23 +19,30 @@ public class AntWorldImpl implements AntWorld {
   public static AntWorldImpl create(BidiVector cellSpace) {
     AntWorldImpl world = new AntWorldImpl();
     world.cellSpace = cellSpace;
-    BidiVector initialAntPosition = cellSpace.scalarProduct(Mathe.scalar(0.5)).integered();
-    world.ant = Ant.create(initialAntPosition, Mathe.vector(0, -1));
+    BidiVector initialAntPosition = cellSpace.center().integered();
+    BidiVector initialAntDirection = Mathe.vector(0, -1);
+    world.ant = Ant.create(initialAntPosition, initialAntDirection);
     world.blackCells = new CopyOnWriteArraySet<>();
     return world;
   }
 
   @Override
   public void advanceOneTimeUnit() {
-    if(antIsOnBlackCell()){
-      ant().turnLeft();
-    }else{
-      ant().turnRight();
-    }
+    CellType steppedType = getCellTypeUnderAnt();
+    steppedType.turnAnt(ant());
+
     if(antCanMove()){
       flipAntCell();
       ant().advance();
     }
+  }
+
+  private CellType getCellTypeUnderAnt() {
+    return blackCells.stream()
+      .filter(ant().position()::equals)
+      .map((blackCell)-> CellType.BLACK)
+      .findAny()
+      .orElse(CellType.WHITE);
   }
 
   private void flipAntCell() {
