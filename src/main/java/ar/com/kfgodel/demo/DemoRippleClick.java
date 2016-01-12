@@ -2,7 +2,6 @@ package ar.com.kfgodel.demo;
 
 import ar.com.kfgodel.demo.ripple.RippleWorld;
 import ar.com.kfgodel.demo.ripple.SystemWorldClock;
-import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.input.MouseEventContext;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
@@ -19,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
+
 /**
  * This demo shows a ripple effect around mouse clicks
  *
@@ -32,7 +33,7 @@ public class DemoRippleClick {
 
     // Function<MouseEvent,WorkerTask> ? Take it from the represented world configuration?
     Function<MouseEventContext, WorkerTask> mouseClickConnector = (mouseEvent)->{
-      return (worker)-> rippleWorld.mouseClickedOn(Mathe.vector(mouseEvent.mouseX(), mouseEvent.mouseY()));
+      return (worker)-> rippleWorld.mouseClickedOn(vector(mouseEvent.mouseX(), mouseEvent.mouseY()));
     };
 
     Supplier<WorkerTask> workerStartConnector = ()->
@@ -45,7 +46,7 @@ public class DemoRippleClick {
           BackgroundVisual.create(0xAAAAAAAA)
             .applyOn(canvas);
           rippleWorld.ripples().forEach((wave) -> {
-            EllipseVisual.create(wave.position(), Mathe.vector(wave.radius(), wave.radius()))
+            EllipseVisual.create(wave.position(), vector(wave.radius(), wave.radius()))
             .applyOn(canvas);
           });
         }

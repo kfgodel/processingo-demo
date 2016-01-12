@@ -2,7 +2,6 @@ package ar.com.kfgodel.demo;
 
 import ar.com.kfgodel.demo.ants.AntWorld;
 import ar.com.kfgodel.demo.ants.AntWorldVisual;
-import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.processingo.api.original.ProcessingRenderer;
 import ar.com.kfgodel.processingo.api.time.TimeQuantity;
 import ar.com.kfgodel.processingo.api.viewports.ViewSize;
@@ -15,6 +14,8 @@ import ar.com.kfgodel.processingo.worker.api.WorkerThread;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
+
 /**
  * This demo shows the Langston ants simulation
  * Created by tenpines on 04/11/15.
@@ -22,7 +23,7 @@ import java.util.function.Supplier;
 public class DemoLangstonAnts {
   public static void main(String[] args) {
 
-    AntWorld world = AntWorld.create(Mathe.vector(200, 150));
+    AntWorld world = AntWorld.create(vector(200, 150));
 
     Supplier<WorkerTask> workerStartConnector = ()->
       WorkerTask.periodicWith(TimeQuantity.of(10, TimeUnit.MILLISECONDS), world::advanceOneTimeUnit);
