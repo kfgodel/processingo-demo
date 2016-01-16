@@ -3,9 +3,11 @@ package ar.com.kfgodel.demo.bounce;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.demo.DemoTestContext;
+import ar.com.kfgodel.mathe.api.Scalar;
 import org.junit.runner.RunWith;
 
-import static ar.com.kfgodel.mathe.api.Mathe.*;
+import static ar.com.kfgodel.mathe.api.Mathe.scalar;
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -53,7 +55,7 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
         context().ball(()-> BouncingBall.withVelocity(vector(0.1, 0.2)));
         describe("when positioned on the farther left", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(vector(ONE_SCALAR.minus(context().ball().radius()), 0.5));
+            context().ball().positionOn(vector(Scalar.ONE.minus(context().ball().radius()), 0.5));
           });
           it("x velocity becomes negative if moved", () -> {
             context().ball().move();
@@ -61,12 +63,12 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
           });
           it("left side becomes 1.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().rightSide()).isEqualTo(ONE_SCALAR);
+            assertThat(context().ball().rightSide()).isEqualTo(Scalar.ONE);
           });
         });
         describe("when positioned on the farther bottom", () -> {
           beforeEach(() -> {
-            context().ball().positionOn(vector(0.5, ONE_SCALAR.minus(context().ball().radius())));
+            context().ball().positionOn(vector(0.5, Scalar.ONE.minus(context().ball().radius())));
           });
           it("y velocity becomes negative if moved", () -> {
             context().ball().move();
@@ -74,7 +76,7 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
           });
           it("bottom side becomes 1.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().bottomSide()).isEqualTo(ONE_SCALAR);
+            assertThat(context().ball().bottomSide()).isEqualTo(Scalar.ONE);
           });
         });
       });
@@ -91,7 +93,7 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
           });
           it("top side becomes 0.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().leftSide()).isEqualTo(ZERO_SCALAR);
+            assertThat(context().ball().leftSide()).isEqualTo(Scalar.ZERO);
           });
         });
         describe("when positioned on the farther top", () -> {
@@ -104,7 +106,7 @@ public class BouncingBallTest extends JavaSpec<DemoTestContext> {
           });
           it("top side becomes 0.0 if moved", () -> {
             context().ball().move();
-            assertThat(context().ball().topSide()).isEqualTo(ZERO_SCALAR);
+            assertThat(context().ball().topSide()).isEqualTo(Scalar.ZERO);
           });
         });
 

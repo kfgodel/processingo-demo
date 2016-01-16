@@ -2,6 +2,7 @@ package ar.com.kfgodel.demo.ants;
 
 import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.mathe.api.Mathe;
+import ar.com.kfgodel.mathe.api.Scalar;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -55,8 +56,8 @@ public class AntWorldImpl implements AntWorld {
 
   private boolean antCanMove() {
     BidiVector nextPosition = ant().nextPosition();
-    boolean willBeOnValidXSpace = nextPosition.x().isGreaterOrEqualTo(Mathe.ZERO_SCALAR) && nextPosition.x().isLessThan(cellSpace.x());
-    boolean willBeOnValidYSpace = nextPosition.y().isGreaterOrEqualTo(Mathe.ZERO_SCALAR) && nextPosition.y().isLessThan(cellSpace.y());
+    boolean willBeOnValidXSpace = nextPosition.x().isGreaterOrEqualTo(Scalar.ZERO) && nextPosition.x().isLessThan(cellSpace.x());
+    boolean willBeOnValidYSpace = nextPosition.y().isGreaterOrEqualTo(Scalar.ZERO) && nextPosition.y().isLessThan(cellSpace.y());
     return willBeOnValidXSpace && willBeOnValidYSpace;
   }
 

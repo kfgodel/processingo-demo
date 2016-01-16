@@ -3,7 +3,7 @@ package ar.com.kfgodel.demo.bounce;
 import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.mathe.api.Scalar;
 
-import static ar.com.kfgodel.mathe.api.Mathe.*;
+import static ar.com.kfgodel.mathe.api.Mathe.vector;
 
 /**
  * Implementation of the bouncing ball
@@ -41,19 +41,19 @@ public class BouncingBallImpl implements BouncingBall {
   @Override
   public void move() {
     BidiVector futurePosition = position.plus(velocity);
-    if(futurePosition.x().plus(radius).isGreaterThan(ONE_SCALAR)){
+    if(futurePosition.x().plus(radius).isGreaterThan(Scalar.ONE)){
       velocity = velocity().invertX();
-      futurePosition = vector(ONE_SCALAR.minus(radius), futurePosition.y());
-    } else if(futurePosition.x().minus(radius).isLessThan(ZERO_SCALAR)){
+      futurePosition = vector(Scalar.ONE.minus(radius), futurePosition.y());
+    } else if(futurePosition.x().minus(radius).isLessThan(Scalar.ZERO)){
       velocity = velocity().invertX();
-      futurePosition = vector(ZERO_SCALAR.plus(radius), futurePosition.y());
+      futurePosition = vector(Scalar.ZERO.plus(radius), futurePosition.y());
     }
-    if(futurePosition.y().plus(radius).isGreaterThan(ONE_SCALAR)){
+    if(futurePosition.y().plus(radius).isGreaterThan(Scalar.ONE)){
       velocity = velocity().invertY();
-      futurePosition = vector(futurePosition.x(), ONE_SCALAR.minus(radius));
-    } else if(futurePosition.y().minus(radius).isLessThan(ZERO_SCALAR)){
+      futurePosition = vector(futurePosition.x(), Scalar.ONE.minus(radius));
+    } else if(futurePosition.y().minus(radius).isLessThan(Scalar.ZERO)){
       velocity = velocity().invertY();
-      futurePosition = vector(futurePosition.x(), ZERO_SCALAR.plus(radius));
+      futurePosition = vector(futurePosition.x(), Scalar.ZERO.plus(radius));
     }
     positionOn(futurePosition);
   }
