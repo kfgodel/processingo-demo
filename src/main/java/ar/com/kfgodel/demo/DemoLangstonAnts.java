@@ -28,7 +28,6 @@ public class DemoLangstonAnts {
     Supplier<WorkerTask> workerStartConnector = ()->
       WorkerTask.periodicWith(TimeQuantity.of(10, TimeUnit.MILLISECONDS), world::advanceOneTimeUnit);
 
-
     ViewSize viewSize = ViewSize.of(800, 600);
     DescribeWorldPerFrameSketch sketch = DescribeWorldPerFrameSketch
       .create(ViewportDefinition.window(viewSize, ProcessingRenderer.P2D),

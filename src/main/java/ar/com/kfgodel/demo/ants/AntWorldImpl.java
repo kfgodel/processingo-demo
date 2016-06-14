@@ -4,7 +4,7 @@ import ar.com.kfgodel.mathe.api.BidiInterval;
 import ar.com.kfgodel.mathe.api.BidiVector;
 import ar.com.kfgodel.mathe.api.Mathe;
 import ar.com.kfgodel.mathe.api.Scalar;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -47,7 +47,7 @@ public class AntWorldImpl implements AntWorld {
   }
 
   private CellType getCellTypeUnderAnt() {
-    return NaryFromNative.of(ant.position())
+    return Nary.of(ant.position())
       .filter(blackCells::contains)
       .map((blackCell)-> CellType.BLACK)
       .findAny()
